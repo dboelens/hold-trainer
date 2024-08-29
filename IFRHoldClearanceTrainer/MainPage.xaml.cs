@@ -1,7 +1,7 @@
 ﻿namespace IFRHoldClearanceTrainer;
 
-using IFRHoldClearanceTrainer.services;
 using CommunityToolkit.Maui.Views;
+using IFRHoldClearanceTrainer.services;
 
 public partial class MainPage : ContentPage
 {
@@ -11,14 +11,15 @@ public partial class MainPage : ContentPage
 	{
 		InitializeComponent();
 		clearenceGenerator = generator;
+		this.ShowPopup(new Warning());
 	}
 
-	private void OnGenerateClicked(object sender, EventArgs e)
+	private async void OnGenerateClicked(object sender, EventArgs e)
 	{
 		var clearence = clearenceGenerator.Generate();
 		ClearenceBox.Text = clearence.DisplayClearence();
 
-		SemanticScreenReader.Announce(ClearenceBox.Text);
+		SemanticScreenReader.Announce(ClearenceBox.Text);		
 	}
 }
 

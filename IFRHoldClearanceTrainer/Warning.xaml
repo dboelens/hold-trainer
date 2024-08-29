@@ -1,0 +1,39 @@
+﻿<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="IFRHoldClearanceTrainer.Warning"
+               CanBeDismissedByTappingOutsideOfPopup="False">
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Label
+                Text="Warning"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+            <Label
+                Text="This application is designed for training use only."
+                Style="{StaticResource SubHeadline}"
+                SemanticProperties.HeadingLevel="Level2" />
+            <Label
+                Text="It is NOT intended for navigation or any other purpose."
+                Style="{StaticResource SubHeadline}"
+                SemanticProperties.HeadingLevel="Level2" />
+            <Label
+                Text="This is not a stand-alone application and should be used under the supervision of a qualified CFII."
+                Style="{StaticResource SubHeadline}"
+                SemanticProperties.HeadingLevel="Level2" />
+
+            <Label
+                Text="Chart version 7/11/24"
+                Style="{StaticResource Info}"
+             />
+
+            <Button
+                Text="Acknowledge" 
+                SemanticProperties.Hint="GenerateNewClearence"
+                Clicked="OnAcknowledge"
+                HorizontalOptions="Center" />
+        </VerticalStackLayout>
+</toolkit:Popup>
+
