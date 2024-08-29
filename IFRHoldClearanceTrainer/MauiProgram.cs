@@ -1,6 +1,5 @@
 ﻿using IFRHoldClearanceTrainer.models;
 using IFRHoldClearanceTrainer.services;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
 
@@ -13,11 +12,15 @@ public static class MauiProgram
 		var vorList = new List<VOR>{
 			new() 
 			{
-				Identifier = "PAE"
+				Identifier = "PAE",
+				IFRChartImage = "paeifr.png",
+				SectionalImage = "paevfr.png"
 			},
 			new()
 			{
-				Identifier = "SEA"
+				Identifier = "SEA",
+				IFRChartImage = "seaifr.png",
+				SectionalImage = "seavfr.png"
 			}
 		};
 

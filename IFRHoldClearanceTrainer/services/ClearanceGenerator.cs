@@ -1,11 +1,11 @@
 namespace IFRHoldClearanceTrainer.services;
 
-using System.Security.Cryptography;
 using IFRHoldClearanceTrainer.models;
 
 public interface IClearenceGenerator
 {
     public HoldClearence Generate();
+    public string GetFixResource(string identifier, ChartType chartType);
 }
 
 public class ClearnceGenerater: IClearenceGenerator
@@ -65,5 +65,17 @@ public class ClearnceGenerater: IClearenceGenerator
     {
         return vorList.ToArray()[random.Next(vorList.Count)].Identifier;
     }
-    
+
+    public string GetFixResource(string identifier, ChartType chartType)
+    {
+        var vor = vorList.Single(
+            s => s.Identifier.Equals(
+                identifier,
+                 StringComparison.InvariantCultureIgnoreCase
+                 ));
+        
+        return chartType == ChartType.VFRSectional ? 
+            vor.SectionalImage:
+            vor.IFRChartImage;    
+    }
 }

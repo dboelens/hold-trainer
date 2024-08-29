@@ -4,39 +4,44 @@
              x:Class="IFRHoldClearanceTrainer.MainPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
 
-
-    <ScrollView>
         <VerticalStackLayout
-            Padding="30,0"
+            Padding="30,5"
             Spacing="25">
-            <Image
-                Source="dotnet_bot.png"
-                HeightRequest="185"
-                Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a race car number eight" />
-
-            <Label
-                Text="Hello, World!"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" />
-
-            <Label
-                x:Name="ClearenceBox"
-                Text="(Generate a new clearance)"
-                Style="{StaticResource SubHeadline}"
-                SemanticProperties.HeadingLevel="Level2" />
-            <toolkit:DrawingView
-                Lines="{Binding MyLines}"
-                LineColor="Red"
-                LineWidth="5" />
-
+            <HorizontalStackLayout>
+                <Label Text="VFR"
+                    Style="{StaticResource ButtonLabel}"
+                />
+                <Switch 
+                    Toggled="OnChartTypeChange"
+                />
+                <Label 
+                    Text="IFR"
+                    Style="{StaticResource ButtonLabel}"
+                />
             <Button
                 x:Name="CounterBtn"
                 Text="Generate New Clearence" 
                 SemanticProperties.Hint="GenerateNewClearence"
                 Clicked="OnGenerateClicked"
-                HorizontalOptions="Fill" />
+                HorizontalOptions="Center" />
+            </HorizontalStackLayout>
+            <AbsoluteLayout
+                BackgroundColor="LightGrey"
+                Opacity="0.5">
+                <Label
+                    x:Name="ClearenceBox"
+                    Text="(Generate a new clearance)"
+                    Style="{StaticResource Clearence}"
+                    SemanticProperties.HeadingLevel="Level2"/>
+            </AbsoluteLayout>
+            <toolkit:DrawingView
+                Lines="{Binding MyLines}"
+                LineColor="Red"
+                LineWidth="5" />
+            <Image
+                x:Name="Chart"
+                Source="dotnet_bot.png"
+                Aspect="AspectFit"
+                IsVisible="Hidden" />
         </VerticalStackLayout>
-    </ScrollView>
-
 </ContentPage>
