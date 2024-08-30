@@ -47,4 +47,18 @@ public class ClearenceGeneratorUnitTest
         Assert.Equal(result, fix.Radial);
 
     }
+
+    [Theory]
+    [InlineData(ChartType.VFRSectional, "BAR")]
+    [InlineData(ChartType.IFREnRoute, "FOO")]
+    public void GeneratorReturnsCorrectImageReference(ChartType chartType, string result){
+        var randomMock = new Mock<IRandom>();
+        var generator = new ClearenceGenerater(randomMock.Object, vorList);
+        var vor = vorList.FirstOrDefault().Identifier;
+
+       var resource = generator.GetFixResource(vor, chartType);
+
+       Assert.Equal(result, resource);
+    }
+
 }

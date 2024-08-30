@@ -18,7 +18,7 @@ public class HoldClearence
         if (this.HoldType != HoldType.Time){
             holdType = HoldTypeUnit + " mile legs\n";
         }
-        else if(this.HoldTypeUnit > 0){
+        else if(this.HoldTypeUnit > 1){
             holdType = HoldTypeUnit + " minute legs\n";
         }
 
