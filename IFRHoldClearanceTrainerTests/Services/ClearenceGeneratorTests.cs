@@ -2,7 +2,7 @@ using IFRHoldClearanceTrainer.models;
 using IFRHoldClearanceTrainer.services;
 using Moq;
 
-namespace IFRHoldClearanceTrainerTests;
+namespace IFRHoldClearanceTrainerTests.services;
 
 public class ClearenceGeneratorUnitTest
 {
@@ -31,7 +31,7 @@ public class ClearenceGeneratorUnitTest
     [InlineData(98, 5, 100)]
     [InlineData(99, 5, 100)]
     [InlineData(100, 5, 100)]
-    [InlineData(187, 5, 90)]
+    [InlineData(187, 5, 185)]
     [InlineData(360, 5, 360)]
     [InlineData(0, 5, 0)]
     public void GenerateFixReturnsReasonableRadials(int radial, int distance, int result)

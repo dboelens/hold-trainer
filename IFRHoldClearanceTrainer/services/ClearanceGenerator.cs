@@ -59,17 +59,16 @@ public class ClearenceGenerater: IClearenceGenerator
 
     public Fix GenerateFix()
     {
+        var radial = (double) random.Next(RADIALMIN, RADIALMAX);
         return new Fix
         {
-            FixIdentifier = GetFixIdentifier(),
-            Radial = Math.Round(
-                random.Next(RADIALMIN, RADIALMAX)/5
-                ) * 5,
+            FixIdentifier = GetRandomFixIdentifier(),
+            Radial =  (int)(Math.Round(radial/5.0) * 5.0),
             DistanceUnits = random.Next(MAXDISTANCE)
         };
     }
 
-    public string GetFixIdentifier()
+    public string GetRandomFixIdentifier()
     {
         return vorList.ToArray()[random.Next(vorList.Count)-1].Identifier;
     }
