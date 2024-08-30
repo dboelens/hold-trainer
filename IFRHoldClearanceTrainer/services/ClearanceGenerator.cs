@@ -8,7 +8,7 @@ public interface IClearenceGenerator
     public string GetFixResource(string identifier, ChartType chartType);
 }
 
-public class ClearnceGenerater: IClearenceGenerator
+public class ClearenceGenerater: IClearenceGenerator
 {
     private IRandom random;
     private IList<VOR> vorList;
@@ -18,7 +18,7 @@ public class ClearnceGenerater: IClearenceGenerator
     private const int MAXLEG = 10;
     private const int MAXIMUMCLEARENCEDURATION = 60;
 
-    public ClearnceGenerater(IRandom randomizer, IList<VOR> vorList)
+    public ClearenceGenerater(IRandom randomizer, IList<VOR> vorList, int radialMin = -1, int radialMax = -1, int maxDistance = -1, int maxLeg = -1, int maximumClearenceDuration = -1)
     {
         random = randomizer;
         this.vorList = vorList;
@@ -45,7 +45,7 @@ public class ClearnceGenerater: IClearenceGenerator
         var fix = GenerateFix();
 
         //Step 2: Determine distanceFromFix
-        
+
 
         return new HoldClearence{
             Direcion = direction,
@@ -62,14 +62,16 @@ public class ClearnceGenerater: IClearenceGenerator
         return new Fix
         {
             FixIdentifier = GetFixIdentifier(),
-            Radial = random.Next(RADIALMIN, RADIALMAX),
+            Radial = Math.Round(
+                random.Next(RADIALMIN, RADIALMAX)/5
+                ) * 5,
             DistanceUnits = random.Next(MAXDISTANCE)
         };
     }
 
     public string GetFixIdentifier()
     {
-        return vorList.ToArray()[random.Next(vorList.Count)].Identifier;
+        return vorList.ToArray()[random.Next(vorList.Count)-1].Identifier;
     }
 
     public string GetFixResource(string identifier, ChartType chartType)

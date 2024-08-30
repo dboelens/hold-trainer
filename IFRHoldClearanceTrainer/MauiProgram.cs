@@ -35,7 +35,7 @@ public static class MauiProgram
 			})
 			.Services
 				.AddSingleton<IRandom,RandomWrapper>()
-				.AddSingleton<IClearenceGenerator, ClearnceGenerater>()
+				.AddSingleton<IClearenceGenerator, ClearenceGenerater>()
 				.AddSingleton<MainPage>()
 				.AddSingleton<IList<VOR>>(vorList);
 			
