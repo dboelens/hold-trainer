@@ -12,7 +12,7 @@ public class ClearenceGenerater: IClearenceGenerator
 {
     private IRandom random;
     private IList<VOR> vorList;
-    private const int RADIALMIN = 0;
+    private const int RADIALMIN = 1;
     private const int RADIALMAX = 360;
     private const int MAXDISTANCE = 10;
     private const int MAXLEG = 10;
@@ -72,7 +72,7 @@ public class ClearenceGenerater: IClearenceGenerator
     {
 
         return vorList.Count > 1 ? 
-            vorList.ToArray()[random.Next(vorList.Count - 1)].Identifier 
+            vorList.ToArray()[random.Next(1, vorList.Count)-1].Identifier 
             : vorList.First().Identifier;
     }
 

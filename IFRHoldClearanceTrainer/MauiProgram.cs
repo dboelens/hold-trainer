@@ -21,6 +21,18 @@ public static class MauiProgram
 				Identifier = "SEA",
 				IFRChartImage = "seaifr.png",
 				SectionalImage = "seavfr.png"
+			},
+			new()
+			{
+				Identifier = "OLM",
+				IFRChartImage = "olmifr.png",
+				SectionalImage = "olmvfr.png"
+			},
+			new()
+			{
+				Identifier = "BTG",
+				IFRChartImage = "btgifr.png",
+				SectionalImage = "btfvfr.png"
 			}
 		};
 		

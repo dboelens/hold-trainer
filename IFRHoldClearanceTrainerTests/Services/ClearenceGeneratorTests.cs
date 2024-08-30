@@ -79,9 +79,9 @@ public class ClearenceGeneratorUnitTest
 
     [Fact]
     public void GeneratorWorksWithMultipleVORs(){
-        int sequence1 = 2;
-        int sequence2 = 0;
-        int sequence3 = 1;
+        int sequence1 = 3;
+        int sequence2 = 1;
+        int sequence3 = 2;
 
         var vorList = new List<VOR>{
             new(){
@@ -96,7 +96,7 @@ public class ClearenceGeneratorUnitTest
         };
 
         var randomMock = new Mock<IRandom>(); 
-        randomMock.SetupSequence(s => s.Next(It.IsAny<int>()))
+        randomMock.SetupSequence(s => s.Next(It.IsAny<int>(), It.IsAny<int>()))
             .Returns(sequence1)
             .Returns(sequence2)
             .Returns(sequence3);
