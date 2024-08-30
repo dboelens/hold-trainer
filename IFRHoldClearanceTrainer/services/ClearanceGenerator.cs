@@ -29,7 +29,7 @@ public class ClearnceGenerater: IClearenceGenerator
         var direction = (Direction)random.Next(
             Enum.GetValues(typeof(Direction)).Cast<int>().Max()
         );
-        var fix = GenerateFix();
+        
         var holdType = (HoldType)random.Next(0,2);
         var holdTypeUnit = random.Next(MAXLEG);
         var holdDirection = (HoldDirection)random.Next(0,2);
@@ -40,6 +40,12 @@ public class ClearnceGenerater: IClearenceGenerator
                 0
             )
         );
+
+        // Step 1: Determine Fix
+        var fix = GenerateFix();
+
+        //Step 2: Determine distanceFromFix
+        
 
         return new HoldClearence{
             Direcion = direction,

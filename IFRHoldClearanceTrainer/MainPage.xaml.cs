@@ -15,17 +15,12 @@ public partial class MainPage : ContentPage
 		InitializeComponent();
 		clearenceGenerator = generator;
 		this.ShowPopup(new Warning());
-		Routing.RegisterRoute("DrawingTest",typeof(DrawingViewTest));
 	}
 
-	private async void OnDrawingModeClicked(object sender, EventArgs e){
-		await AppShell.Current.GoToAsync("DrawingTest");
-	}
 	private async void OnChartTypeChange(object sender, EventArgs e)
 	{
 		chartType = chartType == ChartType.VFRSectional? ChartType.IFREnRoute: ChartType.VFRSectional;
 		UpdateImage();
-		
 	}
 
 	private async void OnGenerateClicked(object sender, EventArgs e)
