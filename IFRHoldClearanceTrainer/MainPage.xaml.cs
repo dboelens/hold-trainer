@@ -8,7 +8,7 @@ public partial class MainPage : ContentPage
 {
 	private IClearenceGenerator clearenceGenerator;
 	private ChartType chartType = ChartType.VFRSectional;
-	private Fix currentFix;
+	private Fix? currentFix;
 
 	public MainPage(IClearenceGenerator generator)
 	{
@@ -17,13 +17,13 @@ public partial class MainPage : ContentPage
 		this.ShowPopup(new Warning());
 	}
 
-	private async void OnChartTypeChange(object sender, EventArgs e)
+	private void OnChartTypeChange(object sender, EventArgs e)
 	{
 		chartType = chartType == ChartType.VFRSectional? ChartType.IFREnRoute: ChartType.VFRSectional;
 		UpdateImage();
 	}
 
-	private async void OnGenerateClicked(object sender, EventArgs e)
+	private void OnGenerateClicked(object sender, EventArgs e)
 	{
 		var clearence = clearenceGenerator.Generate();
 		ClearenceBox.Text = clearence.DisplayClearence();
@@ -32,7 +32,7 @@ public partial class MainPage : ContentPage
 	}
 	private void UpdateImage(){
 		try{
-			var imagePath = clearenceGenerator.GetFixResource(currentFix.FixIdentifier, chartType);
+			var imagePath = clearenceGenerator.GetFixResource(currentFix!.FixIdentifier, chartType);
 			if(string.IsNullOrEmpty(imagePath) && Chart.IsVisible){
 				imagePath = "uhoh.jpg";
 			}
@@ -45,7 +45,7 @@ public partial class MainPage : ContentPage
 			Chart.IsVisible = true;
 			DrawingViewControl.IsVisible = true;
 		}
-		catch(Exception exp){
+		catch(Exception){
 			Chart.Source = "uhoh.jpg";
 			Chart.IsVisible = true;
 		}

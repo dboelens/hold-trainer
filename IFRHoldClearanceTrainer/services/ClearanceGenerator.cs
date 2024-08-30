@@ -70,7 +70,10 @@ public class ClearenceGenerater: IClearenceGenerator
 
     public string GetRandomFixIdentifier()
     {
-        return vorList.ToArray()[random.Next(vorList.Count)-1].Identifier;
+
+        return vorList.Count > 1 ? 
+            vorList.ToArray()[random.Next(vorList.Count - 1)].Identifier 
+            : vorList.First().Identifier;
     }
 
     public string GetFixResource(string identifier, ChartType chartType)

@@ -38,7 +38,7 @@ public class ClearenceGeneratorUnitTest
     {
         var randomMock = new Mock<IRandom>();
         randomMock.Setup(s => s.Next(1)).Returns(0);
-        randomMock.Setup(s => s.Next(It.IsAny<int>())).Returns<int>(i => i == vorList.Count ? vorList.Count: distance);
+        randomMock.Setup(s => s.Next(It.IsAny<int>())).Returns(distance);
         randomMock.Setup(s => s.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(radial);
 
         var generator = new ClearenceGenerater(randomMock.Object, vorList);
@@ -54,11 +54,62 @@ public class ClearenceGeneratorUnitTest
     public void GeneratorReturnsCorrectImageReference(ChartType chartType, string result){
         var randomMock = new Mock<IRandom>();
         var generator = new ClearenceGenerater(randomMock.Object, vorList);
-        var vor = vorList.FirstOrDefault().Identifier;
+        var vor = vorList.FirstOrDefault()!.Identifier;
 
        var resource = generator.GetFixResource(vor, chartType);
 
        Assert.Equal(result, resource);
+    }
+
+    [Fact]
+    public void GeneratorWorksWithOneVOR(){
+        var singleVorList = new List<VOR>{
+            new(){
+                Identifier = "Foo"
+            }
+        };
+
+        var randomMock = new Mock<IRandom>(); 
+        var generator = new ClearenceGenerater(randomMock.Object, singleVorList);
+
+        var identifier = generator.GetRandomFixIdentifier();
+
+        Assert.Equal(singleVorList.First().Identifier, identifier);
+    }
+
+    [Fact]
+    public void GeneratorWorksWithMultipleVORs(){
+        int sequence1 = 2;
+        int sequence2 = 0;
+        int sequence3 = 1;
+
+        var vorList = new List<VOR>{
+            new(){
+                Identifier = "Foo"
+            },
+            new(){
+                Identifier = "Bar"
+            },
+            new(){
+                Identifier = "Fiz"
+            }
+        };
+
+        var randomMock = new Mock<IRandom>(); 
+        randomMock.SetupSequence(s => s.Next(It.IsAny<int>()))
+            .Returns(sequence1)
+            .Returns(sequence2)
+            .Returns(sequence3);
+        var generator = new ClearenceGenerater(randomMock.Object, vorList);
+        var vorArray = vorList.ToArray();
+        
+        var identifier1 = generator.GetRandomFixIdentifier();
+        var identifier2 = generator.GetRandomFixIdentifier();
+        var identifier3 = generator.GetRandomFixIdentifier();
+
+        Assert.Equal(vorArray[sequence1].Identifier, identifier1);
+        Assert.Equal(vorArray[sequence2].Identifier, identifier2);
+        Assert.Equal(vorArray[sequence3].Identifier, identifier3);
     }
 
 }
