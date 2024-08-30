@@ -23,7 +23,7 @@ public static class MauiProgram
 				SectionalImage = "seavfr.png"
 			}
 		};
-
+		
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()

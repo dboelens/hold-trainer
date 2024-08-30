@@ -199,9 +199,10 @@
     </Style>
 
     <Style TargetType="Label" x:Key="Clearence">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}" />
+        <Setter Property="BackgroundColor" Value="DarkGray" />
         <Setter Property="FontSize" Value="16" />
-        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="HorizontalOptions" Value='FillAndExpand' />
         <Setter Property="HorizontalTextAlignment" Value="Start" />
     </Style>
 
@@ -216,8 +217,9 @@
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource MidnightBlue}, Dark={StaticResource White}}" />
         <Setter Property="FontSize" Value="8" />
         <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="HorizontalOptions" Value="Center"/>
         <Setter Property="VerticalTextAlignment" Value="Center" />
-        <Setter Property="Padding" Value="1"/>
+        <Setter Property="HorizontalTextAlignment" Value="Center"/>
     </Style>
 
     <Style TargetType="ListView">

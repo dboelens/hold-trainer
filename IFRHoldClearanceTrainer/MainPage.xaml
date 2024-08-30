@@ -6,42 +6,51 @@
 
         <VerticalStackLayout
             Padding="30,5"
-            Spacing="25">
+            Spacing="10">
             <HorizontalStackLayout>
-                <Label Text="VFR"
-                    Style="{StaticResource ButtonLabel}"
-                />
-                <Switch 
-                    Toggled="OnChartTypeChange"
-                />
-                <Label 
-                    Text="IFR"
-                    Style="{StaticResource ButtonLabel}"
-                />
+            <Label Text="VFR"
+                Style="{StaticResource ButtonLabel}"
+                Padding="0,0,5,0"
+            />
+            <Switch 
+                Toggled="OnChartTypeChange"
+            />
+            <Label 
+                Text="IFR"
+                Style="{StaticResource ButtonLabel}"
+                Padding="5,0,50,0"
+            />
             <Button
-                x:Name="CounterBtn"
                 Text="Generate New Clearence" 
                 SemanticProperties.Hint="GenerateNewClearence"
                 Clicked="OnGenerateClicked"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center"
+                Padding="10,0,10,0" />
             </HorizontalStackLayout>
-            <AbsoluteLayout
-                BackgroundColor="LightGrey"
-                Opacity="0.5">
+            <AbsoluteLayout>
                 <Label
                     x:Name="ClearenceBox"
                     Text="(Generate a new clearance)"
                     Style="{StaticResource Clearence}"
-                    SemanticProperties.HeadingLevel="Level2"/>
+                    SemanticProperties.HeadingLevel="Level2"
+                    Opacity="0.99"
+                    ZIndex="100"/>
+            
+                <Image
+                    x:Name="Chart"
+                    Source="dotnet_bot.png"
+                    Aspect="AspectFit"
+                    IsVisible="Hidden" 
+                    ZIndex="1"
+                    />
+                <toolkit:DrawingView
+                    x:Name="DrawingViewControl"
+                    Lines="{Binding MyLines}"
+                    LineColor="Red"
+                    IsMultiLineModeEnabled="true"
+                    ShouldClearOnFinish="false"
+                    ZIndex="10"
+                     />
             </AbsoluteLayout>
-            <toolkit:DrawingView
-                Lines="{Binding MyLines}"
-                LineColor="Red"
-                LineWidth="5" />
-            <Image
-                x:Name="Chart"
-                Source="dotnet_bot.png"
-                Aspect="AspectFit"
-                IsVisible="Hidden" />
         </VerticalStackLayout>
 </ContentPage>
