@@ -3,39 +3,44 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="IFRHoldClearanceTrainer.MainPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
-
-        <VerticalStackLayout
-            Padding="30,5"
-            Spacing="10">
-            <HorizontalStackLayout>
-            <Label Text="VFR"
-                Style="{StaticResource ButtonLabel}"
-                Padding="0,0,5,0"
-            />
-            <Switch 
-                Toggled="OnChartTypeChange"
-            />
-            <Label 
-                Text="IFR"
-                Style="{StaticResource ButtonLabel}"
-                Padding="5,0,50,0"
-            />
-            <Button
-                Text="Generate New Clearence" 
-                SemanticProperties.Hint="GenerateNewClearence"
-                Clicked="OnGenerateClicked"
-                HorizontalOptions="Center"
-                Padding="10,0,10,0" />
-            </HorizontalStackLayout>
+        <VerticalStackLayout>
+            <VerticalStackLayout
+                Padding="30,5"
+                Spacing="10">
+                <HorizontalStackLayout>
+                <Label Text="VFR"
+                    Style="{StaticResource ButtonLabel}"
+                    Padding="0,0,5,0"
+                />
+                <Switch 
+                    Toggled="OnChartTypeChange"
+                />
+                <Label 
+                    Text="IFR"
+                    Style="{StaticResource ButtonLabel}"
+                    Padding="5,0,50,0"
+                />
+                <Button
+                    Text="Generate New Clearence" 
+                    SemanticProperties.Hint="GenerateNewClearence"
+                    Clicked="OnGenerateClicked"
+                    HorizontalOptions="Center"
+                    Padding="10,0,10,0" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
             <AbsoluteLayout>
-                <Label
-                    x:Name="ClearenceBox"
-                    Text="(Generate a new clearance)"
-                    Style="{StaticResource Clearence}"
-                    SemanticProperties.HeadingLevel="Level2"
-                    Opacity="0.99"
-                    ZIndex="100"/>
-            
+                <HorizontalStackLayout
+                    Style="{StaticResource ClearanceWrapper}"
+                    ZIndex="99"
+                >
+                    <Label
+                        x:Name="ClearenceBox"
+                        Text="(Generate a new clearance)"
+                        Style="{StaticResource Clearence}"
+                        SemanticProperties.HeadingLevel="Level2"
+                        Opacity="0.99"
+                        ZIndex="100"/>
+                </HorizontalStackLayout>
                 <Image
                     x:Name="Chart"
                     Source="dotnet_bot.png"
@@ -50,7 +55,7 @@
                     IsMultiLineModeEnabled="true"
                     ShouldClearOnFinish="false"
                     ZIndex="10"
-                     />
+                    />
             </AbsoluteLayout>
         </VerticalStackLayout>
 </ContentPage>
