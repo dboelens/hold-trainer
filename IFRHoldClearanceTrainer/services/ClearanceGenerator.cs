@@ -5,7 +5,7 @@ using IFRHoldClearanceTrainer.models;
 public interface IClearenceGenerator
 {
     public HoldClearence Generate();
-    public string GetFixResource(string identifier, ChartType chartType);
+    public Coordinate GetFixChartCoordinate(string identifier, ChartType chartType);
 }
 
 public class ClearenceGenerater: IClearenceGenerator
@@ -76,7 +76,7 @@ public class ClearenceGenerater: IClearenceGenerator
             : vorList.First().Identifier;
     }
 
-    public string GetFixResource(string identifier, ChartType chartType)
+    public Coordinate GetFixChartCoordinate(string identifier, ChartType chartType)
     {
         var vor = vorList.Single(
             s => s.Identifier.Equals(
@@ -85,7 +85,7 @@ public class ClearenceGenerater: IClearenceGenerator
                  ));
         
         return chartType == ChartType.VFRSectional ? 
-            vor.SectionalImage:
-            vor.IFRChartImage;    
+            vor.VFRCoordinate:
+            vor.IFRCoordinate;    
     }
 }

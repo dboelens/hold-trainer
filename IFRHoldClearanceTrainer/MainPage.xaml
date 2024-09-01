@@ -2,11 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="IFRHoldClearanceTrainer.MainPage"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:IFRHoldClearanceTrainer">
         <VerticalStackLayout>
             <VerticalStackLayout
                 Padding="30,5"
-                Spacing="10">
+                Spacing="10"
+                ZIndex="10000000"
+                Style="{StaticResource ControlBar}">
                 <HorizontalStackLayout>
                 <Label Text="VFR"
                     Style="{StaticResource ButtonLabel}"
@@ -21,9 +24,22 @@
                     Padding="5,0,50,0"
                 />
                 <Button
+                    x:Name="GenerateButton"
+                    Style="{StaticResource ControlButton}"
                     Text="Generate New Clearence" 
                     SemanticProperties.Hint="GenerateNewClearence"
                     Clicked="OnGenerateClicked"
+                    HorizontalOptions="Center"
+                    Padding="10,0,10,0" />
+                <BoxView
+                    Margin="50,0,50,0"
+                />
+                <Button
+                    x:Name="DrawButton"
+                    Style="{StaticResource ControlButton}"
+                    Text="Draw" 
+                    SemanticProperties.Hint="TurnOnDrawMode"
+                    Clicked="OnDrawClicked"
                     HorizontalOptions="Center"
                     Padding="10,0,10,0" />
                 </HorizontalStackLayout>
@@ -41,19 +57,35 @@
                         Opacity="0.99"
                         ZIndex="100"/>
                 </HorizontalStackLayout>
-                <Image
-                    x:Name="Chart"
-                    Source="dotnet_bot.png"
-                    Aspect="AspectFit"
-                    IsVisible="Hidden" 
-                    ZIndex="1"
-                    />
+                <local:InteractionContainer
+                    x:Name="IFRContainer"
+                >
+                    <Image
+                        x:Name="IFRChart"
+                        Aspect="Center"
+                        IsVisible ="False"
+                        Loaded="OnChartIsLoaded"
+                        ZIndex="1">
+                    </Image>
+                </local:InteractionContainer>
+                <local:InteractionContainer
+                    x:Name="VFRContainer"
+                >
+                    <Image
+                        x:Name="VFRChart"
+                        Aspect="Center"
+                        IsVisible="True"
+                        Loaded="OnChartIsLoaded"
+                        ZIndex="1">
+                    </Image>
+                </local:InteractionContainer>
                 <toolkit:DrawingView
                     x:Name="DrawingViewControl"
                     Lines="{Binding MyLines}"
                     LineColor="Red"
                     IsMultiLineModeEnabled="true"
                     ShouldClearOnFinish="false"
+                    IsEnabled="False"
                     ZIndex="10"
                     />
             </AbsoluteLayout>

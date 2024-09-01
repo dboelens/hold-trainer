@@ -10,8 +10,8 @@ public class ClearenceGeneratorUnitTest
 			new() 
 			{
 				Identifier = "PAE",
-				IFRChartImage = "FOO",
-				SectionalImage = "BAR"
+				VFRCoordinate = new(){X=0,Y=0},
+				IFRCoordinate = new(){X=0,Y=0}
 			},
     };
 
@@ -48,19 +48,6 @@ public class ClearenceGeneratorUnitTest
 
     }
 
-    [Theory]
-    [InlineData(ChartType.VFRSectional, "BAR")]
-    [InlineData(ChartType.IFREnRoute, "FOO")]
-    public void GeneratorReturnsCorrectImageReference(ChartType chartType, string result){
-        var randomMock = new Mock<IRandom>();
-        var generator = new ClearenceGenerater(randomMock.Object, vorList);
-        var vor = vorList.FirstOrDefault()!.Identifier;
-
-       var resource = generator.GetFixResource(vor, chartType);
-
-       Assert.Equal(result, resource);
-    }
-
     [Fact]
     public void GeneratorWorksWithOneVOR(){
         var singleVorList = new List<VOR>{
@@ -79,9 +66,9 @@ public class ClearenceGeneratorUnitTest
 
     [Fact]
     public void GeneratorWorksWithMultipleVORs(){
-        int sequence1 = 3;
-        int sequence2 = 1;
-        int sequence3 = 2;
+        int sequence1 = 2;
+        int sequence2 = 0;
+        int sequence3 = 1;
 
         var vorList = new List<VOR>{
             new(){

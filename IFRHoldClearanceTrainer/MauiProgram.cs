@@ -13,26 +13,26 @@ public static class MauiProgram
 			new() 
 			{
 				Identifier = "PAE",
-				IFRChartImage = "paeifr.png",
-				SectionalImage = "paevfr.png"
+				VFRCoordinate = new(){X = 6842, Y = 2797.5},
+				IFRCoordinate = new(){X = 5088.5,Y = 4120.5}
 			},
 			new()
 			{
 				Identifier = "SEA",
-				IFRChartImage = "seaifr.png",
-				SectionalImage = "seavfr.png"
+				VFRCoordinate = new(){X = 6805, Y = 3938},
+				IFRCoordinate = new(){X = 0,Y = 0}
 			},
 			new()
 			{
 				Identifier = "OLM",
-				IFRChartImage = "olmifr.png",
-				SectionalImage = "olmvfr.png"
+				VFRCoordinate = new(){X = 5693.5, Y = 5150},
+				IFRCoordinate = new(){X = 3774,Y = 6993.5}
 			},
 			new()
 			{
-				Identifier = "BTG",
-				IFRChartImage = "btgifr.png",
-				SectionalImage = "btfvfr.png"
+				Identifier = "UBG",
+				VFRCoordinate = new(){X = 5427.5, Y = 9420.5},
+				IFRCoordinate = new(){X = 3656,Y = 11860}
 			}
 		};
 		

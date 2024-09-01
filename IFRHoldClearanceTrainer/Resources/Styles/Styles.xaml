@@ -8,6 +8,12 @@
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
     </Style>
 
+    <Style TargetType="VerticalStackLayout" x:Key="ControlBar">
+        <Setter Property="BackgroundColor" Value="White"/>
+        <Setter Property="Opacity" Value=".9"/>
+        <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+    </Style>
+
     <Style TargetType="IndicatorView">
         <Setter Property="IndicatorColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray500}}"/>
         <Setter Property="SelectedIndicatorColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray100}}"/>
@@ -47,6 +53,9 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
+    </Style>
+    <Style TargetType="Button" x:Key="ControlButton">
+        <Setter Property="Opacity" Value="1"/>
     </Style>
 
     <Style TargetType="CheckBox">
