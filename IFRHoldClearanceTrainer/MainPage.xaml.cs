@@ -85,6 +85,7 @@ public partial class MainPage : ContentPage
 			DrawingViewControl.Lines.RemoveAt(DrawingViewControl.Lines.Count-1);
 		}
 	}
+
 	private void OnRedoClicked(object sender, EventArgs e)
 	{
 		if(drawQueue.Count > 0)
@@ -97,6 +98,50 @@ public partial class MainPage : ContentPage
 	private void OnClearClicked(object sender, EventArgs e)
 	{
 		DrawingViewControl.Clear();
+	}
+
+	private async void OnScreenshotClicked(object sender, EventArgs e)
+	{
+		if(Screenshot.Default.IsCaptureSupported){
+			var screenshot = await Screenshot.Default.CaptureAsync();
+			Stream imageStream = await screenshot.OpenReadAsync();
+			byte[] imageArray;
+			using(var memoryStream = new MemoryStream())
+			{
+				imageStream.CopyTo(memoryStream);
+				imageArray = memoryStream.ToArray();
+			}
+		#if IOS
+			IFRHoldClearanceTrainer.Platforms.iOS.Services.SavePictureService.SavePicture(imageArray);
+		#endif
+		}
+		else
+		{
+			await DisplayAlert("Alert", "Screenshot not support on your device.", "OK");
+		}
+	}
+
+	private async void OnFeedbackClicked(object sender, EventArgs e)
+	{
+		if(Email.Default.IsComposeSupported){
+			string subject = "Feedback:IFR Hold Trainer";
+			string[] recipients = new[] { "dboelens@gmail.com" };
+
+			string body = "Thank you for using IFR Hold Trainer. Please provide any feedback you have!";
+			var message = new EmailMessage
+			{
+				Subject = subject,
+				Body = body,
+				BodyFormat = EmailBodyFormat.PlainText,
+				To = new List<string>(recipients)
+			};
+
+			await Email.Default.ComposeAsync(message);
+		}
+		else
+		{
+			await DisplayAlert("Alert", "Email access is not available on your device.", "OK");
+		}	
 	}
 
 	private void OnGenerateClicked(object sender, EventArgs e)

@@ -30,9 +30,9 @@
                     SemanticProperties.Hint="GenerateNewClearence"
                     Clicked="OnGenerateClicked"
                     HorizontalOptions="Center"
-                    Padding="10,0,10,0" />
+                    Padding="5,0,5,0" />
                 <BoxView
-                    Margin="50,0,50,0"
+                    Margin="5,0,5,0"
                 />
                 <Button
                     x:Name="DrawButton"
@@ -41,11 +41,12 @@
                     SemanticProperties.Hint="TurnOnDrawMode"
                     Clicked="OnDrawClicked"
                     HorizontalOptions="Center"
-                    Padding="10,0,10,0" />
+                    Padding="5,0,5,0" />
                     <HorizontalStackLayout
                         x:Name="DrawControls"
                         IsVisible="False"
                         Padding="5,0,5,0"
+                        Background="LightGray"
                         >
                         <Button
                             x:Name="Undo"
@@ -56,7 +57,7 @@
                             HorizontalOptions="Center"
                             Padding="5,0,5,0" />
                         <BoxView
-                            Margin="2,0,2,0"
+                            Margin="5,0,5,0"
                         />
                         <Button
                             x:Name="Redo"
@@ -65,18 +66,42 @@
                             SemanticProperties.Hint="RedoDraw"
                             Clicked="OnRedoClicked"
                             HorizontalOptions="Center"
-                            Padding="5,0,2,0" />
+                            Padding="5,0,5,0" />
                          <BoxView
-                            Margin="2,0,2,0"
+                            Margin="5,0,5,0"
                         />
                         <Button
-                            x:Name="Clear"
+                            x:Name="ClearButton"
                             Style="{StaticResource ControlButton}"
                             Text="Clear" 
                             SemanticProperties.Hint="ClearDraw"
                             Clicked="OnClearClicked"
                             HorizontalOptions="Center"
-                            Padding="5,0,2,0" />
+                            Padding="5,0,5,0" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout
+                        HorizontalOptions="EndAndExpand"
+                        Margin="5,0,5,0"
+                    >
+                        <Button
+                            x:Name="FeedbackButton"
+                            Style="{StaticResource ControlButton}"
+                            Text="Feedback" 
+                            SemanticProperties.Hint="ProvideFeedback"
+                            Clicked="OnFeedbackClicked"
+                            HorizontalOptions="Center"
+                            Padding="5,0,5,0" />
+                        <BoxView
+                                Margin="5,0,5,0"
+                            />
+                        <Button
+                            x:Name="ScreenshotButton"
+                            Style="{StaticResource ControlButton}"
+                            Text="Screenshot" 
+                            SemanticProperties.Hint="CaptureScreenshot"
+                            Clicked="OnScreenshotClicked"
+                            HorizontalOptions="Center"
+                            Padding="5,0,5,0" />
                     </HorizontalStackLayout>
                 </HorizontalStackLayout>
             </VerticalStackLayout>

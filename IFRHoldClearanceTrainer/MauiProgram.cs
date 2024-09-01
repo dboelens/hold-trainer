@@ -14,19 +14,19 @@ public static class MauiProgram
 			{
 				Identifier = "PAE",
 				VFRCoordinate = new(){X = 6842, Y = 2797.5},
-				IFRCoordinate = new(){X = 5088.5,Y = 4120.5}
+				IFRCoordinate = new(){X = 4754,Y = 3929.5}
 			},
 			new()
 			{
 				Identifier = "SEA",
 				VFRCoordinate = new(){X = 6805, Y = 3938},
-				IFRCoordinate = new(){X = 5031,Y = 5566.5}
+				IFRCoordinate = new(){X = 4687.5,Y = 5422}
 			},
 			new()
 			{
 				Identifier = "OLM",
 				VFRCoordinate = new(){X = 5693.5, Y = 5150},
-				IFRCoordinate = new(){X = 3774,Y = 6993.5}
+				IFRCoordinate = new(){X = 3446.5,Y = 6819}
 			},
 			new()
 			{
