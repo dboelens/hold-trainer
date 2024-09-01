@@ -10,7 +10,7 @@
 
     <Style TargetType="VerticalStackLayout" x:Key="ControlBar">
         <Setter Property="BackgroundColor" Value="White"/>
-        <Setter Property="Opacity" Value=".9"/>
+        <Setter Property="Opacity" Value=".95"/>
         <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
     </Style>
 
@@ -37,6 +37,7 @@
         <Setter Property="BorderWidth" Value="0"/>
         <Setter Property="CornerRadius" Value="8"/>
         <Setter Property="Padding" Value="14,10"/>
+        <Setter Property="Opacity" Value="1.0"/>
         <Setter Property="MinimumHeightRequest" Value="44"/>
         <Setter Property="MinimumWidthRequest" Value="44"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
@@ -53,9 +54,6 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
-    </Style>
-    <Style TargetType="Button" x:Key="ControlButton">
-        <Setter Property="Opacity" Value="1"/>
     </Style>
 
     <Style TargetType="CheckBox">

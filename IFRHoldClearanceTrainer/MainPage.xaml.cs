@@ -32,8 +32,6 @@ public partial class MainPage : ContentPage
 		IFRChart.AnchorY = 0;
 		VFRChart.Scale = 1;
 		IFRChart.Scale = 1;
-		VFRChart.IsVisible = true;
-		//MoveChartPosition(VFRContainer, defaultVFRCoordinate);
 	}
 
 	private void OnChartTypeChange(object sender, EventArgs e)
@@ -96,6 +94,11 @@ public partial class MainPage : ContentPage
 			var line = (DrawingLine) drawQueue.Pop();
 			DrawingViewControl.Lines.Add(line);
 		}
+	}
+
+	private void OnClearClicked(object sender, EventArgs e)
+	{
+		DrawingViewControl.Clear();
 	}
 
 	private void OnChartIsLoaded(object sender, EventArgs e)
