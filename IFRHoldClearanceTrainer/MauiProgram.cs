@@ -20,7 +20,7 @@ public static class MauiProgram
 			{
 				Identifier = "SEA",
 				VFRCoordinate = new(){X = 6805, Y = 3938},
-				IFRCoordinate = new(){X = 0,Y = 0}
+				IFRCoordinate = new(){X = 5031,Y = 5566.5}
 			},
 			new()
 			{
