@@ -12,10 +12,8 @@ public partial class MainPage : ContentPage
 	private IClearenceGenerator clearenceGenerator;
 	private ChartType chartType = ChartType.VFRSectional;
 	private Fix? currentFix;
-	private string ifrImageSource = "ifrlow.tif";
+	private string ifrImageSource = "ifrlow.tiff";
 	private string vfrImageSource = "seattlesectional.tif";
-
-	private Coordinate defaultVFRCoordinate = new() {X = 6942, Y = 3923.5};
 
 	private Stack drawQueue = new Stack();
 
@@ -99,16 +97,6 @@ public partial class MainPage : ContentPage
 	private void OnClearClicked(object sender, EventArgs e)
 	{
 		DrawingViewControl.Clear();
-	}
-
-	private void OnChartIsLoaded(object sender, EventArgs e)
-	{
-		if(chartType == ChartType.VFRSectional){
-			MoveChartPosition(VFRContainer, defaultVFRCoordinate);
-		}
-		else{
-			MoveChartPosition(IFRContainer, defaultVFRCoordinate);
-		}
 	}
 
 	private void OnGenerateClicked(object sender, EventArgs e)

@@ -31,8 +31,8 @@ public class InteractionContainer : ContentView
                 // Translate and pan.
                 double boundsX = Content.Width;
                 double boundsY = Content.Height;
-                Content.TranslationX = Math.Clamp(panX + e.TotalX, -boundsX, boundsX);
-                Content.TranslationY = Math.Clamp(panY + e.TotalY, -boundsY, boundsY);
+                Content.TranslationX = Math.Clamp(panX + e.TotalX, -boundsX, 0);
+                Content.TranslationY = Math.Clamp(panY + e.TotalY, -boundsY, 0);
                 break;
 
             case GestureStatus.Completed:
