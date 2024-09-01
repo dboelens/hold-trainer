@@ -1,9 +1,11 @@
 ﻿namespace IFRHoldClearanceTrainer;
 
+using System.Collections;
+using CommunityToolkit.Maui.Core.Views;
 using CommunityToolkit.Maui.Views;
 using IFRHoldClearanceTrainer.models;
 using IFRHoldClearanceTrainer.services;
-using Microsoft.VisualBasic;
+using Microsoft.Maui.Controls.Shapes;
 
 public partial class MainPage : ContentPage
 {
@@ -13,7 +15,9 @@ public partial class MainPage : ContentPage
 	private string ifrImageSource = "ifrlow.tif";
 	private string vfrImageSource = "seattlesectional.tif";
 
-	private Coordinate defaultVFRCoordinate = new() {X = 800, Y = 250};
+	private Coordinate defaultVFRCoordinate = new() {X = 6942, Y = 3923.5};
+
+	private Stack drawQueue = new Stack();
 
 	public MainPage(IClearenceGenerator generator)
 	{
@@ -29,6 +33,7 @@ public partial class MainPage : ContentPage
 		VFRChart.Scale = 1;
 		IFRChart.Scale = 1;
 		VFRChart.IsVisible = true;
+		//MoveChartPosition(VFRContainer, defaultVFRCoordinate);
 	}
 
 	private void OnChartTypeChange(object sender, EventArgs e)
@@ -61,6 +66,8 @@ public partial class MainPage : ContentPage
 			DrawingViewControl.BackgroundColor = Color.FromRgba(255,255,255,0);
 			DrawButton.Text="Draw";
 			DrawingViewControl.IsEnabled = false;
+			DrawControls.IsVisible=false;
+			drawQueue.Clear();
 		}
 		else 
 		{
@@ -69,8 +76,26 @@ public partial class MainPage : ContentPage
 			DrawingViewControl.BackgroundColor = Color.FromRgba(255,255,255,0);
 			DrawButton.Text="Stop Drawing";
 			DrawingViewControl.IsEnabled = true;
+			DrawControls.IsVisible=true;
+		}	
+	}
+
+	private void OnUndoClicked(object sender, EventArgs e)
+	{
+		if(DrawingViewControl.Lines.Count > 0)
+		{
+			var lastLine = DrawingViewControl.Lines.Last();
+			drawQueue.Push(lastLine);
+			DrawingViewControl.Lines.RemoveAt(DrawingViewControl.Lines.Count-1);
 		}
-		
+	}
+	private void OnRedoClicked(object sender, EventArgs e)
+	{
+		if(drawQueue.Count > 0)
+		{
+			var line = (DrawingLine) drawQueue.Pop();
+			DrawingViewControl.Lines.Add(line);
+		}
 	}
 
 	private void OnChartIsLoaded(object sender, EventArgs e)

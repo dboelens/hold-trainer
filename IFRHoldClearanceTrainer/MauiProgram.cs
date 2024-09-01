@@ -48,6 +48,7 @@ public static class MauiProgram
 			.Services
 				.AddSingleton<IRandom,RandomWrapper>()
 				.AddSingleton<IClearenceGenerator, ClearenceGenerater>()
+				.AddSingleton<IDirectionRules,BasicDirectionRulesEngine>()
 				.AddSingleton<MainPage>()
 				.AddSingleton<IList<VOR>>(vorList);
 			

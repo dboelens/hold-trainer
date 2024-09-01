@@ -41,7 +41,10 @@ public class ClearenceGeneratorUnitTest
         randomMock.Setup(s => s.Next(It.IsAny<int>())).Returns(distance);
         randomMock.Setup(s => s.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(radial);
 
-        var generator = new ClearenceGenerater(randomMock.Object, vorList);
+        var directionRulesMock = new Mock<IDirectionRules>();
+        //directionRulesMock.Setup(s => s.GenerateLogicalDirection(It.IsAny<int>(), It.IsAny<HoldDirection>())).Returns(Direction.North);
+
+        var generator = new ClearenceGenerater(randomMock.Object, vorList, directionRulesMock.Object);
         var fix = generator.GenerateFix();
 
         Assert.Equal(result, fix.Radial);
@@ -57,7 +60,8 @@ public class ClearenceGeneratorUnitTest
         };
 
         var randomMock = new Mock<IRandom>(); 
-        var generator = new ClearenceGenerater(randomMock.Object, singleVorList);
+        var directionRulesMock = new Mock<IDirectionRules>(); 
+        var generator = new ClearenceGenerater(randomMock.Object, singleVorList, directionRulesMock.Object);
 
         var identifier = generator.GetRandomFixIdentifier();
 
@@ -66,9 +70,9 @@ public class ClearenceGeneratorUnitTest
 
     [Fact]
     public void GeneratorWorksWithMultipleVORs(){
-        int sequence1 = 2;
-        int sequence2 = 0;
-        int sequence3 = 1;
+        int sequence1 = 3;
+        int sequence2 = 1;
+        int sequence3 = 2;
 
         var vorList = new List<VOR>{
             new(){
@@ -87,16 +91,34 @@ public class ClearenceGeneratorUnitTest
             .Returns(sequence1)
             .Returns(sequence2)
             .Returns(sequence3);
-        var generator = new ClearenceGenerater(randomMock.Object, vorList);
+        var directionRulesMock = new Mock<IDirectionRules>();
+        var generator = new ClearenceGenerater(randomMock.Object, vorList, directionRulesMock.Object);
         var vorArray = vorList.ToArray();
         
         var identifier1 = generator.GetRandomFixIdentifier();
         var identifier2 = generator.GetRandomFixIdentifier();
         var identifier3 = generator.GetRandomFixIdentifier();
 
-        Assert.Equal(vorArray[sequence1].Identifier, identifier1);
-        Assert.Equal(vorArray[sequence2].Identifier, identifier2);
-        Assert.Equal(vorArray[sequence3].Identifier, identifier3);
+        Assert.Equal(vorArray[sequence1-1].Identifier, identifier1);
+        Assert.Equal(vorArray[sequence2-1].Identifier, identifier2);
+        Assert.Equal(vorArray[sequence3-1].Identifier, identifier3);
+    }
+
+    [Fact]
+    public void DirectionRulesEngineGetsCalled()
+    {
+         var randomMock = new Mock<IRandom>();
+        randomMock.Setup(s => s.Next(1)).Returns(0);
+        randomMock.Setup(s => s.Next(It.IsAny<int>())).Returns(5);
+        randomMock.Setup(s => s.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(5);
+
+        var directionRulesMock = new Mock<IDirectionRules>();
+        directionRulesMock.Setup(s => s.GenerateLogicalDirection(It.IsAny<int>(), It.IsAny<HoldDirection>())).Returns(Direction.North);
+
+        var generator = new ClearenceGenerater(randomMock.Object, vorList, directionRulesMock.Object);
+        var fix = generator.Generate();
+
+        directionRulesMock.Verify(mock => mock.GenerateLogicalDirection(It.IsAny<int>(), It.IsAny<HoldDirection>()), Times.AtLeastOnce());
     }
 
 }
