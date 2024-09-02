@@ -78,10 +78,21 @@
                             Clicked="OnClearClicked"
                             HorizontalOptions="Center"
                             Padding="5,0,5,0" />
+                        <BoxView
+                            Margin="5,0,5,0"
+                        />
+                         <Button
+                            x:Name="ScreenshotButton"
+                            Style="{StaticResource ControlButton}"
+                            Text="Screenshot" 
+                            SemanticProperties.Hint="CaptureScreenshot"
+                            Clicked="OnScreenshotClicked"
+                            HorizontalOptions="Center"
+                            Padding="5,0,5,0" />
                     </HorizontalStackLayout>
                     <HorizontalStackLayout
                         HorizontalOptions="EndAndExpand"
-                        Margin="5,0,5,0"
+                        Margin="20,0,20,0"
                     >
                         <Button
                             x:Name="FeedbackButton"
@@ -89,17 +100,6 @@
                             Text="Feedback" 
                             SemanticProperties.Hint="ProvideFeedback"
                             Clicked="OnFeedbackClicked"
-                            HorizontalOptions="Center"
-                            Padding="5,0,5,0" />
-                        <BoxView
-                                Margin="5,0,5,0"
-                            />
-                        <Button
-                            x:Name="ScreenshotButton"
-                            Style="{StaticResource ControlButton}"
-                            Text="Screenshot" 
-                            SemanticProperties.Hint="CaptureScreenshot"
-                            Clicked="OnScreenshotClicked"
                             HorizontalOptions="Center"
                             Padding="5,0,5,0" />
                     </HorizontalStackLayout>
