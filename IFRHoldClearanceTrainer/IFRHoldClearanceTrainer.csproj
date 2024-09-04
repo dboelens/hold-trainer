@@ -37,6 +37,16 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
+	
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
+      <CreatePackage>false</CreatePackage>
+      <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
+      <CodesignProvision>IFR Test Provisioning Profile</CodesignProvision>
+      <CodesignKey>iPhone Developer: Daniel BOELENS (RS3A2LC3Y4)</CodesignKey>
+      <CodesignEntitlements>Platforms\iOS\Entitlements.plist</CodesignEntitlements>
+      <MtouchLink>SdkOnly</MtouchLink>
+      <MtouchUseLlvm>true</MtouchUseLlvm>
+    </PropertyGroup>
 
 	<ItemGroup>
 		<!-- App Icon -->
@@ -61,6 +71,10 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Remove="Resources/Images/.DS_Store"/>
 	</ItemGroup>
 
 </Project>
