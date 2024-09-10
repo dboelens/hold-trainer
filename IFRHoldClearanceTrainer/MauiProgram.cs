@@ -1,6 +1,5 @@
 ﻿using IFRHoldClearanceTrainer.models;
 using IFRHoldClearanceTrainer.services;
-using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
 
 namespace IFRHoldClearanceTrainer;
@@ -51,11 +50,6 @@ public static class MauiProgram
 				.AddSingleton<IDirectionRules,BasicDirectionRulesEngine>()
 				.AddSingleton<MainPage>()
 				.AddSingleton<IList<VOR>>(vorList);
-			
-
-#if DEBUG
-		builder.Logging.AddDebug();
-#endif
 
 		return builder.Build();
 	}

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net8.0;net8.0-ios</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
@@ -24,18 +24,13 @@
 		<ApplicationTitle>Hold Trainer</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.boelenstechnology.ifrholdclearancetrainer</ApplicationId>
+		<ApplicationId>com.boelenstechnology.ifrholdtrainer</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">16.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
-		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
@@ -46,6 +41,7 @@
       <CodesignEntitlements>Platforms\iOS\Entitlements.plist</CodesignEntitlements>
       <MtouchLink>SdkOnly</MtouchLink>
       <MtouchUseLlvm>true</MtouchUseLlvm>
+	  <NoSymbolStrip>true</NoSymbolStrip>
     </PropertyGroup>
 
 	<ItemGroup>
@@ -57,7 +53,6 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Include="Resources\Images\*\*" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -70,11 +65,46 @@
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.3" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Remove="Resources/Images/.DS_Store"/>
 	</ItemGroup>
+
+	<PropertyGroup>
+		<_LibXamarinLinkMode>static</_LibXamarinLinkMode>
+		<_LibMonoLinkMode>static</_LibMonoLinkMode>
+	</PropertyGroup>
+	<Target Name="_FixMonoLinkMode" AfterTargets="_MonoReadAvailableComponentsManifest">
+		<ItemGroup>
+		<_MonoRuntimeComponentLinking Remove="dynamic" />
+		<_MonoRuntimeComponentLinking Include="static" RuntimeIdentifier="iossimulator-arm64" />
+		<_MonoRuntimeComponentLinking Include="static" RuntimeIdentifier="iossimulator-x64" />
+		</ItemGroup>
+	</Target>
+	
+	<Target Name="_OverwriteReferencesLinkerFlags" BeforeTargets="_LinkNativeExecutable">
+		<!-- Remove the `-u` prefix from `_ReferencesLinkerFlags` so we can give the output file to the platform linker -->
+		<!-- NOTE: This step is actually also done after LinkNativeCode task, but we cannot intercept it differently -->
+		<WriteLinesToFile SessionId="$(BuildSessionId)" File="$(_MtouchSymbolsList)" Lines="@(_ReferencesLinkerFlags->'%(Identity)'->Substring (2))" Overwrite="true" />
+
+		<ItemGroup>
+		<!-- Backup collected required symbols -->
+		<_ReferencesLinkerFlagsBackup Include="@(_ReferencesLinkerFlags)" />
+
+		<!-- Clear `_ReferencesLinkerFlags` to prevent required symbols to be passed in -u_symbolName format -->
+		<_ReferencesLinkerFlags Remove="@(_ReferencesLinkerFlags)" />
+		<!-- Instruct platform linker to only export required symbols -->
+		<_ReferencesLinkerFlags Include="-exported_symbols_list" />
+		<_ReferencesLinkerFlags Include="$(_MtouchSymbolsList)" />
+		</ItemGroup>
+	</Target>
+
+	<Target Name="_RestoreReferencesLinkerFlags" AfterTargets="_LinkNativeExecutable">
+		<ItemGroup>
+		<_ReferencesLinkerFlags Remove="@(_ReferencesLinkerFlags)" />
+		<_ReferencesLinkerFlags Include="@(_ReferencesLinkerFlagsBackup)" />
+		</ItemGroup>
+	</Target>
 
 </Project>

@@ -6,7 +6,6 @@
 	<true/>
 	<key>UIDeviceFamily</key>
 	<array>
-		<integer>1</integer>
 		<integer>2</integer>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -27,7 +26,9 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>XSAppIconAssets</key>
-	<string>Assets.xcassets/appicon.appiconset</string>
+		<string>Assets.xcassets/appicon.appiconset</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+		<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>mailto</string>
