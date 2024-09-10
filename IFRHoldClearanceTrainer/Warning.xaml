@@ -23,7 +23,10 @@
                 Text="This is not a stand-alone application and should be used under the supervision of a qualified CFII."
                 Style="{StaticResource SubHeadline}"
                 SemanticProperties.HeadingLevel="Level2" />
-
+            <Label
+                Text="This application works best in landscape mode."
+                Style="{StaticResource StandardText}"
+                SemanticProperties.HeadingLevel="Level3" />
             <Label
                 Text="Chart version 7/11/24"
                 Style="{StaticResource Info}"

@@ -5,7 +5,6 @@ using CommunityToolkit.Maui.Core.Views;
 using CommunityToolkit.Maui.Views;
 using IFRHoldClearanceTrainer.models;
 using IFRHoldClearanceTrainer.services;
-using Microsoft.Maui.Controls.Shapes;
 
 public partial class MainPage : ContentPage
 {
@@ -125,7 +124,7 @@ public partial class MainPage : ContentPage
 	{
 		if(Email.Default.IsComposeSupported){
 			string subject = "Feedback:IFR Hold Trainer";
-			string[] recipients = new[] { "dboelens@gmail.com" };
+			string[] recipients = ["boelenstechnology@gmail.com"];
 
 			string body = "Thank you for using IFR Hold Trainer. Please provide any feedback you have!";
 			var message = new EmailMessage

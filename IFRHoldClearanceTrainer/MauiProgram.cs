@@ -32,7 +32,7 @@ public static class MauiProgram
 			{
 				Identifier = "UBG",
 				VFRCoordinate = new(){X = 5427.5, Y = 9420.5},
-				IFRCoordinate = new(){X = 3656,Y = 11860}
+				IFRCoordinate = new(){X = 3314.5,Y = 11692.5}
 			}
 		};
 		

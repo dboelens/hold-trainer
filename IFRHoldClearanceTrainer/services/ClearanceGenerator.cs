@@ -73,7 +73,7 @@ public class ClearenceGenerater: IClearenceGenerator
     public string GetRandomFixIdentifier()
     {
         return vorList.Count > 1 ? 
-            vorList.ToArray()[random.Next(1, vorList.Count)-1].Identifier 
+            vorList.ToArray()[random.Next(0, vorList.Count)].Identifier 
             : vorList.First().Identifier;
     }
 
