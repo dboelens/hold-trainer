@@ -105,6 +105,7 @@
                             SemanticProperties.Hint="ProvideFeedback"
                             Clicked="OnFeedbackClicked"
                             HorizontalOptions="Center"
+                            WidthRequest="98"
                             Padding="5,0,5,0" />
                     </HorizontalStackLayout>
                 </HorizontalStackLayout>
