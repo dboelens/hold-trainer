@@ -70,9 +70,9 @@ public class ClearenceGeneratorUnitTest
 
     [Fact]
     public void GeneratorWorksWithMultipleVORs(){
-        int sequence1 = 3;
-        int sequence2 = 1;
-        int sequence3 = 2;
+        int sequence1 = 2;
+        int sequence2 = 0;
+        int sequence3 = 1;
 
         var vorList = new List<VOR>{
             new(){
@@ -99,9 +99,9 @@ public class ClearenceGeneratorUnitTest
         var identifier2 = generator.GetRandomFixIdentifier();
         var identifier3 = generator.GetRandomFixIdentifier();
 
-        Assert.Equal(vorArray[sequence1-1].Identifier, identifier1);
-        Assert.Equal(vorArray[sequence2-1].Identifier, identifier2);
-        Assert.Equal(vorArray[sequence3-1].Identifier, identifier3);
+        Assert.Equal(vorArray[sequence1].Identifier, identifier1);
+        Assert.Equal(vorArray[sequence2].Identifier, identifier2);
+        Assert.Equal(vorArray[sequence3].Identifier, identifier3);
     }
 
     [Fact]
