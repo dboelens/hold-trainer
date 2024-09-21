@@ -36,10 +36,12 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
       <CreatePackage>false</CreatePackage>
       <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
-      <CodesignProvision>IFR Test Provisioning Profile</CodesignProvision>
-      <CodesignKey>iPhone Developer: Daniel BOELENS (RS3A2LC3Y4)</CodesignKey>
+      <CodesignProvision>IFRHoldDist</CodesignProvision>
+      <CodesignKey>iPhone Distribution: Daniel BOELENS (5D4R364V45)</CodesignKey>
       <CodesignEntitlements>Platforms\iOS\Entitlements.plist</CodesignEntitlements>
       <MtouchLink>SdkOnly</MtouchLink>
+	<UseInterpreter>true</UseInterpreter>
+	<MtouchExtraArgs>--optimize:-static-block-to-delegate-lookup</MtouchExtraArgs>
       <MtouchUseLlvm>true</MtouchUseLlvm>
 	  <NoSymbolStrip>true</NoSymbolStrip>
     </PropertyGroup>
@@ -65,12 +67,13 @@
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.3" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		 <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Remove="Resources/Images/.DS_Store"/>
+		<Compile Remove="Resources/Images/.DS_Store" />
 	</ItemGroup>
-
+	
 	<PropertyGroup>
 		<_LibXamarinLinkMode>static</_LibXamarinLinkMode>
 		<_LibMonoLinkMode>static</_LibMonoLinkMode>
@@ -86,7 +89,7 @@
 	<Target Name="_OverwriteReferencesLinkerFlags" BeforeTargets="_LinkNativeExecutable">
 		<!-- Remove the `-u` prefix from `_ReferencesLinkerFlags` so we can give the output file to the platform linker -->
 		<!-- NOTE: This step is actually also done after LinkNativeCode task, but we cannot intercept it differently -->
-		<WriteLinesToFile SessionId="$(BuildSessionId)" File="$(_MtouchSymbolsList)" Lines="@(_ReferencesLinkerFlags->'%(Identity)'->Substring (2))" Overwrite="true" />
+		<WriteLinesToFile SessionId="$(BuildSessionId)" File="$(_MtouchSymbolsList)" Lines="@(_ReferencesLinkerFlags-&gt;'%(Identity)'-&gt;Substring (2))" Overwrite="true" />
 
 		<ItemGroup>
 		<!-- Backup collected required symbols -->
