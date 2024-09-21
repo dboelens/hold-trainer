@@ -36,8 +36,6 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
       <CreatePackage>false</CreatePackage>
       <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
-      <CodesignProvision>IFRHoldDist</CodesignProvision>
-      <CodesignKey>iPhone Distribution: Daniel BOELENS (5D4R364V45)</CodesignKey>
       <CodesignEntitlements>Platforms\iOS\Entitlements.plist</CodesignEntitlements>
       <MtouchLink>SdkOnly</MtouchLink>
 	<UseInterpreter>true</UseInterpreter>
