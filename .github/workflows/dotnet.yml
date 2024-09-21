@@ -48,4 +48,3 @@ jobs:
       with:
         name: dotnet-results-${{ github.event.repository.updated_at}}
         path: TestResults-${{ github.event.repository.updated_at}}
-        if: ${{ always() }}
