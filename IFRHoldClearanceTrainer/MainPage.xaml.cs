@@ -35,22 +35,26 @@ public partial class MainPage : ContentPage
 	{
 		if(chartType == ChartType.VFRSectional){
 			chartType = ChartType.IFREnRoute;
-			VFRChart.IsVisible = false;
-			VFRContainer.IsVisible=false;
-			IFRChart.IsVisible = true;
-			IFRContainer.IsVisible=true;
-			var coordinate = clearenceGenerator.GetFixChartCoordinate(currentFix.FixIdentifier, chartType);
-			MoveChartPosition(IFRContainer, coordinate);
+			if(currentFix is not null){
+				VFRChart.IsVisible = false;
+				VFRContainer.IsVisible=false;
+				IFRChart.IsVisible = true;
+				IFRContainer.IsVisible=true;
+				var coordinate = clearenceGenerator.GetFixChartCoordinate(currentFix.FixIdentifier, chartType);
+				MoveChartPosition(IFRContainer, coordinate!);
+			}
 		}
 		else
 		{
 			chartType = ChartType.VFRSectional;
-			VFRChart.IsVisible = true;
-			VFRContainer.IsVisible=true;
-			IFRChart.IsVisible = false;
-			IFRContainer.IsVisible=false;
-			var coordinate = clearenceGenerator.GetFixChartCoordinate(currentFix.FixIdentifier, chartType);
-			MoveChartPosition(VFRContainer, coordinate);
+			if(currentFix is not null){
+				VFRChart.IsVisible = true;
+				VFRContainer.IsVisible=true;
+				IFRChart.IsVisible = false;
+				IFRContainer.IsVisible=false;
+				var coordinate = clearenceGenerator.GetFixChartCoordinate(currentFix.FixIdentifier, chartType);
+				MoveChartPosition(VFRContainer, coordinate!);
+			}
 		}
 	}
 	private void OnDrawClicked(object sender, EventArgs e){
