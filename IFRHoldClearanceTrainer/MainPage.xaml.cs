@@ -157,12 +157,16 @@ public partial class MainPage : ContentPage
 
 		if(chartType == ChartType.VFRSectional){
 			VFRChart.IsVisible = true;
+			VFRContainer.IsVisible = true;
 			IFRChart.IsVisible = false;
+			IFRContainer.IsVisible = false;
 			MoveChartPosition(VFRContainer, vorCoordinate);
 		}
 		else{
 			VFRChart.IsVisible = false;
+			VFRContainer.IsVisible = false;
 			IFRChart.IsVisible = true;
+			IFRContainer.IsVisible = true;
 			MoveChartPosition(IFRContainer, vorCoordinate);
 		}
 
