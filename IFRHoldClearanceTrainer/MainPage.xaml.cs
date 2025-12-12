@@ -2,6 +2,7 @@
 
 using System.Collections;
 using CommunityToolkit.Maui.Core.Views;
+using CommunityToolkit.Maui.Extensions;
 using CommunityToolkit.Maui.Views;
 using IFRHoldClearanceTrainer.models;
 using IFRHoldClearanceTrainer.services;
@@ -20,7 +21,7 @@ public partial class MainPage : ContentPage
 	{
 		InitializeComponent();
 		clearenceGenerator = generator;
-		this.ShowPopup(new Warning());
+		this.ShowPopupAsync(new Warning());
 		VFRChart.Source = vfrImageSource;
 		IFRChart.Source = ifrImageSource;
 		VFRChart.AnchorX = 0;
@@ -184,9 +185,9 @@ public partial class MainPage : ContentPage
 			var x = Math.Clamp(-coordinates.X, -boundsX, boundsX);
 			var y = Math.Clamp(-coordinates.Y, -boundsY, boundsY);
 			source.TranslationX = x;
-			container.panX = x;
+			container.offsetX = x;
 			source.TranslationY = y; 
-			container.panY = y;
+			container.offsetY = y;
 		}
 		catch{
 			
