@@ -1,8 +1,13 @@
 namespace IFRHoldClearanceTrainer.models;
 
-public enum Direction{
+public enum Direction
+{
     North,
+    NorthEast,
     East,
+    SouthEast,
     South,
-    West
+    SouthWest,
+    West,
+    NorthWest
 }
