@@ -1,6 +1,6 @@
 namespace IFRHoldClearanceTrainer.models;
 
-public enum HoldDirection
+public enum TurnDirection
 {
     Left,
     Right

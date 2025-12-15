@@ -45,16 +45,16 @@ public class ClearenceGenerater: IClearenceGenerator
         var radial = fix.Radial;
 
         //Step 3: Determine turn direction
-        var holdDirection = (HoldDirection)random.Next(0,1);
+        var holdDirection = (TurnDirection)random.Next(0,1);
 
-        var direction = directionRules.GenerateLogicalDirection(radial,holdDirection);
+        var direction = directionRules.GenerateLogicalDirection(radial);
 
         return new HoldClearence{
             Direcion = direction,
             Fix = fix,
             HoldType = holdType,
             HoldTypeUnit = holdTypeUnit,
-            HoldDirection = holdDirection,
+            TurnDirection = holdDirection,
             EFCTime = efcTime
         };
     }

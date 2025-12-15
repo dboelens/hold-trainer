@@ -113,12 +113,12 @@ public class ClearenceGeneratorUnitTest
         randomMock.Setup(s => s.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(5);
 
         var directionRulesMock = new Mock<IDirectionRules>();
-        directionRulesMock.Setup(s => s.GenerateLogicalDirection(It.IsAny<int>(), It.IsAny<HoldDirection>())).Returns(Direction.North);
+        directionRulesMock.Setup(s => s.GenerateLogicalDirection(It.IsAny<int>())).Returns(Direction.North);
 
         var generator = new ClearenceGenerater(randomMock.Object, vorList, directionRulesMock.Object);
         var fix = generator.Generate();
 
-        directionRulesMock.Verify(mock => mock.GenerateLogicalDirection(It.IsAny<int>(), It.IsAny<HoldDirection>()), Times.AtLeastOnce());
+        directionRulesMock.Verify(mock => mock.GenerateLogicalDirection(It.IsAny<int>()), Times.AtLeastOnce());
     }
 
 }

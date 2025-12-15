@@ -5,7 +5,7 @@ public class HoldClearence
     public required Fix Fix {get; set;}
     public HoldType HoldType {get; set;}
     public int HoldTypeUnit {get; set;}
-    public HoldDirection HoldDirection {get; set;}
+    public TurnDirection TurnDirection {get; set;}
     public TimeSpan EFCTime {get; set;}
 
     public string DisplayClearence()
@@ -23,7 +23,7 @@ public class HoldClearence
         }
 
         string holdDirection = "";
-        if(this.HoldDirection != HoldDirection.Right){
+        if(this.TurnDirection != TurnDirection.Right){
             holdDirection = "Left turns \n";
         }
         

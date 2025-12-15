@@ -5,29 +5,41 @@ namespace IFRHoldClearanceTrainer.services;
 
 public interface IDirectionRules
 {
-    public Direction GenerateLogicalDirection(int radial, HoldDirection direction);
+    public Direction GenerateLogicalDirection(int radial);
 }
 
 public class BasicDirectionRulesEngine : IDirectionRules
 {
-    public Direction GenerateLogicalDirection(int radial, HoldDirection direction)
+    private IRandom random;
+
+    public BasicDirectionRulesEngine(IRandom random)
     {
-        if(radial >= 0 && radial < 45) return Direction.North;
-        else if(radial == 45 && direction == HoldDirection.Right) return Direction.North;
-        else if(radial == 45 && direction == HoldDirection.Left) return Direction.East;
-        else if(radial > 45 && radial < 135) return Direction.East;
-        else if(radial == 135 && direction == HoldDirection.Right) return Direction.East;
-        else if(radial == 135 && direction == HoldDirection.Left) return Direction.South;
-        else if(radial > 135 && radial < 215) return Direction.South;
-        else if(radial == 215 && direction == HoldDirection.Right) return Direction.South;
-        else if(radial == 215 && direction == HoldDirection.Left) return Direction.West;
-        else if (radial > 215 && radial < 315) return Direction.West;
-        else if (radial == 315 && direction == HoldDirection.Right) return Direction.West;
-        else if (radial == 315 && direction == HoldDirection.Left) return Direction.North;
-        else if (radial > 315 && radial <= 360) return Direction.North;
-        else
+        this.random = random;
+    }
+    public Direction GenerateLogicalDirection(int radial)
+    {
+        switch (radial)
         {
-            throw new InvalidDataException($"Invalid radial or direction received. Radial:{radial} | Direction:{direction}");
+            case  180 or 360:
+                return CoinFlip(Direction.North, Direction.South);
+            case > 0 and < 90:
+                return CoinFlip(Direction.NorthEast, Direction.SouthWest);
+            case 90 or 270:
+                return CoinFlip(Direction.East, Direction.West);
+            case > 90 and < 180:
+                return CoinFlip(Direction.NorthWest, Direction.SouthEast);
+            case > 180 and < 270:
+                return CoinFlip(Direction.NorthEast, Direction.SouthWest);
+            case > 270 and < 360:
+                return CoinFlip(Direction.NorthWest, Direction.SouthEast);
+            default:
+                throw new InvalidDataException($"Invalid radial or direction received. Radial:{radial}");
+   
         }
     }
+    private Direction CoinFlip(Direction direction1, Direction direction2)
+    {
+        return random.Next(0,10) % 2 == 0 ? direction1: direction2;
+    }
 }
+

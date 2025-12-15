@@ -121,7 +121,7 @@ public partial class MainPage : ContentPage
 		}
 		else
 		{
-			await DisplayAlert("Alert", "Screenshot not support on your device.", "OK");
+			await DisplayAlertAsync("Alert", "Screenshot not support on your device.", "OK");
 		}
 	}
 
@@ -144,7 +144,7 @@ public partial class MainPage : ContentPage
 		}
 		else
 		{
-			await DisplayAlert("Alert", "Email access is not available on your device.", "OK");
+			await DisplayAlertAsync("Alert", "Email access is not available on your device.", "OK");
 		}	
 	}
 

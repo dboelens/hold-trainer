@@ -20,7 +20,7 @@ public class HoldClearenceUnitTest
             },
             HoldType = HoldType.Time,
             HoldTypeUnit = 1,
-            HoldDirection = HoldDirection.Left,
+            TurnDirection = TurnDirection.Left,
             EFCTime = DateTime.Now.TimeOfDay
         };
 
@@ -40,7 +40,7 @@ public class HoldClearenceUnitTest
             },
             HoldType = HoldType.Time,
             HoldTypeUnit = 2,
-            HoldDirection = HoldDirection.Right,
+            TurnDirection = TurnDirection.Right,
             EFCTime = DateTime.Now.TimeOfDay
         };
 
@@ -60,7 +60,7 @@ public class HoldClearenceUnitTest
             },
             HoldType = HoldType.Distance,
             HoldTypeUnit = 2,
-            HoldDirection = HoldDirection.Left,
+            TurnDirection = TurnDirection.Left,
             EFCTime = DateTime.Now.TimeOfDay
         };
 
@@ -80,7 +80,7 @@ public class HoldClearenceUnitTest
             },
             HoldType = HoldType.Time,
             HoldTypeUnit = 2,
-            HoldDirection = HoldDirection.Left,
+            TurnDirection = TurnDirection.Left,
             EFCTime = DateTime.Now.TimeOfDay
         };
 
@@ -107,7 +107,7 @@ public class HoldClearenceUnitTest
             },
             HoldType = HoldType.Distance,
             HoldTypeUnit = 2,
-            HoldDirection = HoldDirection.Left,
+            TurnDirection = TurnDirection.Left,
             EFCTime = DateTime.Now.TimeOfDay
         };
 
@@ -135,7 +135,7 @@ public class HoldClearenceUnitTest
             },
             HoldType = HoldType.Time,
             HoldTypeUnit = 2,
-            HoldDirection = HoldDirection.Left,
+            TurnDirection = TurnDirection.Left,
             EFCTime = DateTime.Now.TimeOfDay
         };
 
