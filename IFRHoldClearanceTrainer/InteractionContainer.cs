@@ -12,11 +12,11 @@ public class InteractionContainer : ContentView
         // Set PanGestureRecognizer.TouchPoints to control the
         // number of touch points needed to pan
         PanGestureRecognizer panGesture = new PanGestureRecognizer();
-        panGesture.PanUpdated += OnPanUpdated;
+        panGesture.PanUpdated += OnPanUpdated!;
         GestureRecognizers.Add(panGesture);
 
         PinchGestureRecognizer pinchGesture = new PinchGestureRecognizer();
-        pinchGesture.PinchUpdated += OnPinchUpdated;
+        pinchGesture.PinchUpdated += OnPinchUpdated!;
         GestureRecognizers.Add(pinchGesture);
     }
 
@@ -57,7 +57,7 @@ public class InteractionContainer : ContentView
         {
             // Calculate the scale factor to be applied.
             
-            currentScale += (e.Scale) - 1;
+            currentScale += e.Scale - 1;
 
             Console.WriteLine($"Event Scale: {e.Scale} | Current Scale: {currentScale}");
 
@@ -89,7 +89,7 @@ public class InteractionContainer : ContentView
                 Content.IsVisible = true;
             }
             catch(ArgumentException exp){
-
+                Console.WriteLine($"Transition Exception",exp);
             }
         }
         if (e.Status == GestureStatus.Completed)

@@ -11,7 +11,7 @@ public static class SavePictureService
         var imageData = NSData.FromArray(arr);
         var image = UIImage.LoadFromData(imageData);
 
-        image.SaveToPhotosAlbum((img, error) =>
+        image!.SaveToPhotosAlbum((img, error) =>
         {
         });
     }

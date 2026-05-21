@@ -19,7 +19,7 @@ public class BasicDirectionRulesEngineUnitTest
     [Fact]
     public void GenerateLogicalDirectionThrowsForLargeRadial()
     {
-         var randomMock = new Mock<IRandom>();
+        var randomMock = new Mock<IRandom>();
         var directionRules = new BasicDirectionRulesEngine(randomMock.Object);
 
         Assert.Throws<InvalidDataException>(() => directionRules.GenerateLogicalDirection(361));

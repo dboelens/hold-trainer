@@ -94,7 +94,7 @@ public partial class MainPage : ContentPage
 	{
 		if(drawQueue.Count > 0)
 		{
-			var line = (DrawingLine) drawQueue.Pop();
+            var line = (DrawingLine)drawQueue.Pop()!;
 			DrawingViewControl.Lines.Add(line);
 		}
 	}
@@ -161,14 +161,14 @@ public partial class MainPage : ContentPage
 			VFRContainer.IsVisible = true;
 			IFRChart.IsVisible = false;
 			IFRContainer.IsVisible = false;
-			MoveChartPosition(VFRContainer, vorCoordinate);
+			MoveChartPosition(VFRContainer, vorCoordinate!);
 		}
 		else{
 			VFRChart.IsVisible = false;
 			VFRContainer.IsVisible = false;
 			IFRChart.IsVisible = true;
 			IFRContainer.IsVisible = true;
-			MoveChartPosition(IFRContainer, vorCoordinate);
+			MoveChartPosition(IFRContainer, vorCoordinate!);
 		}
 
 		DrawingViewControl.Clear();

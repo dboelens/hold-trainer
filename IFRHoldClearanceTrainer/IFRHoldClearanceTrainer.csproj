@@ -42,6 +42,7 @@
 	<MtouchExtraArgs>--optimize:-static-block-to-delegate-lookup</MtouchExtraArgs>
       <MtouchUseLlvm>true</MtouchUseLlvm>
 	  <NoSymbolStrip>true</NoSymbolStrip>
+	  <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     </PropertyGroup>
 
 	<ItemGroup>

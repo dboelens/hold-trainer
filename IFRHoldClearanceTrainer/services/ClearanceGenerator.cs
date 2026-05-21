@@ -5,7 +5,7 @@ using IFRHoldClearanceTrainer.models;
 public interface IClearenceGenerator
 {
     public HoldClearence Generate();
-    public Coordinate GetFixChartCoordinate(string identifier, ChartType chartType);
+    public Coordinate? GetFixChartCoordinate(string identifier, ChartType chartType);
 }
 
 public class ClearenceGenerater: IClearenceGenerator
@@ -64,23 +64,23 @@ public class ClearenceGenerater: IClearenceGenerator
         var radial = (double) random.Next(RADIALMIN, RADIALMAX);
         return new Fix
         {
-            FixIdentifier = GetRandomFixIdentifier(),
+            FixIdentifier = GetRandomFixIdentifier()!,
             Radial =  (int)(Math.Round(radial/5.0) * 5.0),
             DistanceUnits = random.Next(MAXDISTANCE)
         };
     }
 
-    public string GetRandomFixIdentifier()
+    public string? GetRandomFixIdentifier()
     {
         return vorList.Count > 1 ? 
             vorList.ToArray()[random.Next(0, vorList.Count)].Identifier 
             : vorList.First().Identifier;
     }
 
-    public Coordinate GetFixChartCoordinate(string identifier, ChartType chartType)
+    public Coordinate? GetFixChartCoordinate(string identifier, ChartType chartType)
     {
         var vor = vorList.Single(
-            s => s.Identifier.Equals(
+            s => s.Identifier!.Equals(
                 identifier,
                  StringComparison.InvariantCultureIgnoreCase
                  ));
