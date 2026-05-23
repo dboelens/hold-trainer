@@ -11,7 +11,7 @@ public class HoldClearence
     public string DisplayClearence()
     {
         string holdLocation = 
-        "Hold " + this.Direcion.ToString() +
+        "Hold " + this.Direcion.ToString().ToLower() +
         Fix.DisplayFix() + Environment.NewLine;
 
         string holdType = "";

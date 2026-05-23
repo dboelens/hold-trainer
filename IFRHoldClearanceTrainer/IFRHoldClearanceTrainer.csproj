@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net10.0;net10.0-ios</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks>net10.0-ios</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
 
@@ -13,13 +12,14 @@
 		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
 		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
 
-		<OutputType Condition="'$(TargetFramework)' != 'net10.0'">Exe</OutputType>
+		<OutputType>Exe</OutputType>
 		<RootNamespace>IFRHoldClearanceTrainer</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
+		<MauiXamlInflator>SourceGen</MauiXamlInflator>
 		<!-- Display name -->
 		<ApplicationTitle>Hold Trainer</ApplicationTitle>
 
@@ -30,21 +30,14 @@
 		<ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
 		<ApplicationVersion>1.1</ApplicationVersion>
 
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">16.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
-	
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-ios|AnyCPU'">
-      <CreatePackage>false</CreatePackage>
-      <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
-      <CodesignEntitlements>Platforms\iOS\Entitlements.plist</CodesignEntitlements>
-      <MtouchLink>SdkOnly</MtouchLink>
-	<UseInterpreter>true</UseInterpreter>
-	<MtouchExtraArgs>--optimize:-static-block-to-delegate-lookup</MtouchExtraArgs>
-      <MtouchUseLlvm>true</MtouchUseLlvm>
-	  <NoSymbolStrip>true</NoSymbolStrip>
-	  <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    </PropertyGroup>
-
+		<PropertyGroup Condition="$(TargetFramework.Contains('-ios')) and '$(Configuration)' == 'Release'">
+		<CodesignKey>iPhone Distribution: Daniel BOELENS (5D4R364V45)</CodesignKey>
+		<CodesignProvision>IOs Distribution: Boelens</CodesignProvision>
+		<ArchiveOnBuild>true</ArchiveOnBuild>
+		<RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
+	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#FFFFFF" />
@@ -58,55 +51,17 @@
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
 
-		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
-		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="13.0.0" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.11" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.11" />
-		 <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.1" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="14.1.1" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.70" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.70" />
+		 <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.8" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Remove="Resources/Images/.DS_Store" />
 	</ItemGroup>
-	
-	<PropertyGroup>
-		<_LibXamarinLinkMode>static</_LibXamarinLinkMode>
-		<_LibMonoLinkMode>static</_LibMonoLinkMode>
-	</PropertyGroup>
-	<Target Name="_FixMonoLinkMode" AfterTargets="_MonoReadAvailableComponentsManifest">
-		<ItemGroup>
-		<_MonoRuntimeComponentLinking Remove="dynamic" />
-		<_MonoRuntimeComponentLinking Include="static" RuntimeIdentifier="iossimulator-arm64" />
-		<_MonoRuntimeComponentLinking Include="static" RuntimeIdentifier="iossimulator-x64" />
-		</ItemGroup>
-	</Target>
-	
-	<Target Name="_OverwriteReferencesLinkerFlags" BeforeTargets="_LinkNativeExecutable">
-		<!-- Remove the `-u` prefix from `_ReferencesLinkerFlags` so we can give the output file to the platform linker -->
-		<!-- NOTE: This step is actually also done after LinkNativeCode task, but we cannot intercept it differently -->
-		<WriteLinesToFile SessionId="$(BuildSessionId)" File="$(_MtouchSymbolsList)" Lines="@(_ReferencesLinkerFlags-&gt;'%(Identity)'-&gt;Substring (2))" Overwrite="true" />
-
-		<ItemGroup>
-		<!-- Backup collected required symbols -->
-		<_ReferencesLinkerFlagsBackup Include="@(_ReferencesLinkerFlags)" />
-
-		<!-- Clear `_ReferencesLinkerFlags` to prevent required symbols to be passed in -u_symbolName format -->
-		<_ReferencesLinkerFlags Remove="@(_ReferencesLinkerFlags)" />
-		<!-- Instruct platform linker to only export required symbols -->
-		<_ReferencesLinkerFlags Include="-exported_symbols_list" />
-		<_ReferencesLinkerFlags Include="$(_MtouchSymbolsList)" />
-		</ItemGroup>
-	</Target>
-
-	<Target Name="_RestoreReferencesLinkerFlags" AfterTargets="_LinkNativeExecutable">
-		<ItemGroup>
-		<_ReferencesLinkerFlags Remove="@(_ReferencesLinkerFlags)" />
-		<_ReferencesLinkerFlags Include="@(_ReferencesLinkerFlagsBackup)" />
-		</ItemGroup>
-	</Target>
 
 </Project>
