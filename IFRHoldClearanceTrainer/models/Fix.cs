@@ -8,9 +8,9 @@ public class Fix{
 
     public string DisplayFix()
     {
-        string fixString = " of the " + FixIdentifier + " VOR";
+        string fixString = " of the " + FixIdentifier + " VOR " + Radial + " radial ";
         if(DistanceUnits >0){
-            fixString = fixString + " " + Radial + " radial " + DistanceUnits + " DME";
+            fixString = fixString + DistanceUnits + " DME";
         }
 
         return fixString;

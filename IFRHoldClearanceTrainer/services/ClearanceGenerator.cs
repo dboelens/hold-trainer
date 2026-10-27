@@ -27,9 +27,9 @@ public class ClearenceGenerater: IClearenceGenerator
     }
 
     public HoldClearence Generate()
-    {   
-        var holdType = (HoldType)random.Next(0,1);
-        var holdTypeUnit = random.Next(MAXLEG);
+    {
+        var holdType = (HoldType)random.Next(0, 1);
+        int holdTypeUnit = GenerateWeightedHoldType();
         var efcTime = DateTime.UtcNow.TimeOfDay.Add(
             new TimeSpan(
                 0,
@@ -45,11 +45,12 @@ public class ClearenceGenerater: IClearenceGenerator
         var radial = fix.Radial;
 
         //Step 3: Determine turn direction
-        var holdDirection = (TurnDirection)random.Next(0,1);
+        var holdDirection = (TurnDirection)random.Next(0, 1);
 
         var direction = directionRules.GenerateLogicalDirection(radial);
 
-        return new HoldClearence{
+        return new HoldClearence
+        {
             Direcion = direction,
             Fix = fix,
             HoldType = holdType,
@@ -58,6 +59,16 @@ public class ClearenceGenerater: IClearenceGenerator
             EFCTime = efcTime
         };
     }
+
+    private int GenerateWeightedHoldType()
+    {
+        // We want it to be more likely to get a 0 distance hold than DME hold
+        var ran = random.Next(0,10);
+        if(ran%3==0)
+            return 0;
+        
+        return random.Next(MAXLEG);
+     }
 
     public Fix GenerateFix()
     {
