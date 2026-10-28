@@ -17,6 +17,7 @@
                 />
                 <Switch 
                     Toggled="OnChartTypeChange"
+                    IsToggled="True"
                 />
                 <Label 
                     Text="IFR"

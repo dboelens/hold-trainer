@@ -10,7 +10,7 @@ using IFRHoldClearanceTrainer.services;
 public partial class MainPage : ContentPage
 {
 	private IClearenceGenerator clearenceGenerator;
-	private ChartType chartType = ChartType.VFRSectional;
+	private ChartType chartType;
 	private Fix? currentFix;
 	private string ifrImageSource = "ifrlow.tiff";
 	private string vfrImageSource = "seattlesectional.tif";
@@ -30,6 +30,7 @@ public partial class MainPage : ContentPage
 		IFRChart.AnchorY = 0;
 		VFRChart.Scale = 1;
 		IFRChart.Scale = 1;
+		chartType = ChartType.IFREnRoute;
 	}
 
 	private void OnChartTypeChange(object sender, EventArgs e)
@@ -137,8 +138,8 @@ public partial class MainPage : ContentPage
 				Subject = subject,
 				Body = body,
 				BodyFormat = EmailBodyFormat.PlainText,
-				To = new List<string>(recipients)
-			};
+				To = [.. recipients]
+            };
 
 			await Email.Default.ComposeAsync(message);
 		}
