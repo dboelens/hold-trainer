@@ -8,7 +8,7 @@ public class Fix{
 
     public string DisplayFix()
     {
-        string radial = $"0{Radial}";
+        string radial = $"000{Radial}";
         string radialString = radial[^3..];
         string fixString = " of the " + FixIdentifier + " VOR" ;
         if(DistanceUnits >0){
