@@ -34,6 +34,6 @@
 		<string>mailto</string>
 	</array>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-		<string>Please allow access to save photo in your photo library</string>
+		<string>Allow access to your photo library to enable saving screenshots of your holds for instructor feedback</string>
 </dict>
 </plist>
